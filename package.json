@@ -5,7 +5,9 @@
   "dependencies": {
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "react-scripts": "^3.2.0"
+    "react-flexview": "^4.0.4",
+    "react-scripts": "^3.2.0",
+    "typescript": "^3.7.2"
   },
   "scripts": {
     "start": "react-scripts start",

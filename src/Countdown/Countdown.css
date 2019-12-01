@@ -1,0 +1,11 @@
+ @font-face {
+    font-family: 'Digital-7';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/fonts/digital7mono.ttf') format('truetype');
+  }
+
+ .digital {
+    font-family: 'Digital-7';
+    font-size: 200px;
+  }
