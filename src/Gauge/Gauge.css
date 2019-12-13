@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'Digital-7';
+    font-style: normal;
+    src: url('/fonts/digital7mono.ttf') format('truetype');
+  }
+
+  .CircularProgressbar .CircularProgressbar-text {
+    font-family: 'Digital-7';
+    font-size: 12em;
+    font-weight: 200;
+    color: rgb(114,186,218);
+}

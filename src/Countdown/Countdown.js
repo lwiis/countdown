@@ -50,6 +50,12 @@ class Countdown extends Component {
     }
     timeLeft.secs = diff;//.toFixed(3);
 
+    // if((timeLeft.secs%2) && this.props.codeInputIsHidden) {
+    //   this.props.toggleCodeInput();
+    // } else if((timeLeft.secs%2===0) && !this.props.codeInputIsHidden) {
+    //   this.props.toggleCodeInput();
+    // }
+
     return timeLeft;
   }
 

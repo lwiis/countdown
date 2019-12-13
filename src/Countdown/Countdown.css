@@ -1,11 +1,16 @@
  @font-face {
     font-family: 'Digital-7';
     font-style: normal;
-    font-weight: 400;
     src: url('/fonts/digital7mono.ttf') format('truetype');
   }
 
  .digital {
     font-family: 'Digital-7';
-    font-size: 200px;
+    font-size: 12em;
+    font-weight: 100;
+    color: rgb(114,186,218);
+  }
+
+  .Countdown {
+    z-index: 200;
   }

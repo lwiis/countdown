@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Input from './Input';
+import TextInput from './TextInput';
 import FlexView from 'react-flexview';
 
 class CodeInput extends Component {
@@ -15,6 +15,7 @@ class CodeInput extends Component {
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.clearInput = this.clearInput.bind(this);
     }
 
     handleInputChange(event) {
@@ -29,48 +30,67 @@ class CodeInput extends Component {
         console.log('A value was submitted: ' + event.target.value + ' on field ' + event.target.name);
     }
 
+    componentDidUpdate() {
+        if (this.state.value1 !== '' 
+         && this.state.value2 !== '' 
+         && this.state.value3 !== '' 
+         && this.state.value4 !== '' 
+         && this.state.value5 !== '') {
+            console.log('all values specified');
+        }
+    }
+
     handleSubmit(event) {
         console.log(this.state);
         event.preventDefault();
+    }
+
+    clearInput() {
+        this.setState({
+            value1: '',
+            value2: '',
+            value3: '',
+            value4: '',
+            value5: '',
+        });
     }
 
     render() {
         return (
 
             <form className="container" onSubmit={this.handleSubmit}>
-                <FlexView>
-                    <Input type={'text'}
-                        name={'value1'}
-                        value={this.state.value1}
-                        placeholder={'XX'}
-                        handleChange={this.handleInputChange}
-                    />
-                    <Input type={'text'}
-                        name={'value2'}
-                        value={this.state.value2}
-                        placeholder={'XX'}
-                        handleChange={this.handleInputChange}
-                    />
-                    <Input type={'text'}
-                        name={'value3'}
-                        value={this.state.value3}
-                        placeholder={'XX'}
-                        handleChange={this.handleInputChange}
-                    />
-                    <Input type={'text'}
-                        name={'value4'}
-                        value={this.state.value4}
-                        placeholder={'XX'}
-                        handleChange={this.handleInputChange}
-                    />
-                    <Input type={'text'}
-                        name={'value5'}
-                        value={this.state.value5}
-                        placeholder={'XX'}
-                        handleChange={this.handleInputChange}
-                    />
+                <FlexView column>
+                    <FlexView hAlignContent='center'>
+                        <TextInput 
+                            name={'value1'}
+                            value={this.state.value1}
+                            handleChange={this.handleInputChange}
+                        />
+                        <TextInput 
+                            name={'value2'}
+                            value={this.state.value2}
+                            handleChange={this.handleInputChange}
+                        />
+                        <TextInput 
+                            name={'value3'}
+                            value={this.state.value3}
+                            handleChange={this.handleInputChange}
+                        />
+                        <TextInput 
+                            name={'value4'}
+                            value={this.state.value4}
+                            handleChange={this.handleInputChange}
+                        />
+                        <TextInput 
+                            name={'value5'}
+                            value={this.state.value5}
+                            handleChange={this.handleInputChange}
+                        />
+                    </FlexView>
+                    <FlexView hAlignContent='center'>
+                        <input type="button" value="Clear" onClick={this.clearInput}/>
+                    </FlexView>
                 </FlexView>
-                <input type="submit" value="Submit" />
 
             </form>
 
