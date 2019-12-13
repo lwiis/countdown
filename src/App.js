@@ -12,8 +12,8 @@ class App extends Component {
     super();
     this.state = {
       codeInputIsHidden: true,
-      logoIsHidden: true,
-      gaugeIsHidden: false,
+      logoIsHidden: false,
+      gaugeIsHidden: true,
       route: 'firstcountdown',
       temperature1: 28,
       temperature2: 24,
