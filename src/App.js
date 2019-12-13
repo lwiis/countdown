@@ -11,7 +11,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      codeInputIsHidden: true,
+      codeInputIsHidden: false,
       logoIsHidden: false,
       gaugeIsHidden: true,
       route: 'firstcountdown',
