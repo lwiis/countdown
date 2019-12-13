@@ -70,6 +70,10 @@ class CodeInput extends Component {
         }
     }
 
+    componentDidMount() {
+        this.value1.current.focus();
+    }
+
     handleSubmit(event) {
         console.log(this.state);
         event.preventDefault();
