@@ -12,8 +12,8 @@ class App extends Component {
     super();
     this.state = {
       codeInputIsHidden: true,
-      logoIsHidden: false,
-      gaugeIsHidden: true,
+      logoIsHidden: true,
+      gaugeIsHidden: false,
       route: 'firstcountdown',
       temperature1: 28,
       temperature2: 24,
@@ -35,7 +35,7 @@ class App extends Component {
     return (
       <FlexView vAlignContent='center' column marginTop='100px'>
         <FlexView hAlignContent='center'>
-          <FlexView hAlignContent='left' basis={400} height={400} marginLeft='50px'>
+          <FlexView hAlignContent='left' basis={300} height={300} marginTop='75px' marginLeft='50px' marginRight='50px'>
             {!this.state.logoIsHidden && <Logo />}
             {!this.state.gaugeIsHidden && <Gauge temperature={this.state.temperature1}/>}
           </FlexView>
@@ -46,7 +46,7 @@ class App extends Component {
               />
             </FlexView>
           </FlexView>
-          <FlexView hAlignContent='right' basis={400} height={400} marginRight='50px'>
+          <FlexView hAlignContent='right' basis={300} height={300} marginTop='75px' marginLeft='50px' marginRight='50px'>
             {!this.state.logoIsHidden && <Logo />}
             {!this.state.gaugeIsHidden && <Gauge temperature={this.state.temperature2}/>}
           </FlexView>
