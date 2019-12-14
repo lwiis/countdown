@@ -14,6 +14,7 @@ class CodeInput extends Component {
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.clearInput = this.clearInput.bind(this);
 
@@ -22,6 +23,60 @@ class CodeInput extends Component {
         this.value3 = React.createRef();
         this.value4 = React.createRef();
         this.value5 = React.createRef();
+    }
+
+    isASCII(str) {
+        return str.replace(/[^\x20-\x7E]/g, '')!=='';
+    }
+
+    handleKeyPress(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const code = event.key;
+        const name = target.name;
+
+        console.log(code);
+
+        if (value==='' && code==='Backspace') {
+            this.focusLeft(target);
+        } else if (value!=='' && code==='Backspace') {
+            this.setState({
+                [name]: ''
+            });
+        } else if (code==='ArrowLeft') {
+            this.focusLeft(target);
+        } else if (code==='ArrowRight') {
+            this.focusRight(target);
+        } else if (value!=='' && this.isASCII(code)) {
+            this.setState({
+                [name]: code
+            });
+            this.focusRight(target);
+        }
+    }
+
+    focusRight(target) {
+        if (target === this.value1.current) {
+            this.value2.current.focus();
+        } else if (target === this.value2.current) {
+            this.value3.current.focus();
+        } else if (target === this.value3.current) {
+            this.value4.current.focus();
+        } else if (target === this.value4.current) {
+            this.value5.current.focus();
+        }
+    }
+
+    focusLeft(target) {
+        if (target === this.value5.current) {
+            this.value4.current.focus();
+        } else if (target === this.value4.current) {
+            this.value3.current.focus();
+        } else if (target === this.value3.current) {
+            this.value2.current.focus();
+        } else if (target === this.value2.current) {
+            this.value1.current.focus();
+        }
     }
 
     handleInputChange(event) {
@@ -35,29 +90,13 @@ class CodeInput extends Component {
 
         console.log('A value was submitted: ' + value+ ' on field ' + name);
 
-        // move focus forward on typing
-        if (value.length === target.maxLength) {
-            if (target === this.value1.current) {
-                this.value2.current.focus();
-            } else if (target === this.value2.current) {
-                this.value3.current.focus();
-            } else if (target === this.value3.current) {
-                this.value4.current.focus();
-            } else if (target === this.value4.current) {
-                this.value5.current.focus();
-            }
-        // move focus backward on deleting
-        } else if (value.length === 0) {
-            if (target === this.value5.current) {
-                this.value4.current.focus();
-            } else if (target === this.value4.current) {
-                this.value3.current.focus();
-            } else if (target === this.value3.current) {
-                this.value2.current.focus();
-            } else if (target === this.value2.current) {
-                this.value1.current.focus();
-            }
-        }
+        // // move focus forward on typing
+        // if (value.length === target.maxLength) {
+        //     this.focusRight(target);
+        // // move focus backward on deleting
+        // } else if (value.length === 0) {
+        //     this.focusLeft(target);
+        // }
     }
 
     componentDidUpdate() {
@@ -101,6 +140,7 @@ class CodeInput extends Component {
                             name={'value1'}
                             value={this.state.value1}
                             handleChange={this.handleInputChange}
+                            handleKeyPress={this.handleKeyPress}
                         />
                         <TextInput
                             id="2"
@@ -108,6 +148,7 @@ class CodeInput extends Component {
                             name={'value2'}
                             value={this.state.value2}
                             handleChange={this.handleInputChange}
+                            handleKeyPress={this.handleKeyPress}
                         />
                         <TextInput
                             id="3"
@@ -115,6 +156,7 @@ class CodeInput extends Component {
                             name={'value3'}
                             value={this.state.value3}
                             handleChange={this.handleInputChange}
+                            handleKeyPress={this.handleKeyPress}
                         />
                         <TextInput
                             id="4"
@@ -122,6 +164,7 @@ class CodeInput extends Component {
                             name={'value4'}
                             value={this.state.value4}
                             handleChange={this.handleInputChange}
+                            handleKeyPress={this.handleKeyPress}
                         />
                         <TextInput
                             id="5"
@@ -129,6 +172,7 @@ class CodeInput extends Component {
                             name={'value5'}
                             value={this.state.value5}
                             handleChange={this.handleInputChange}
+                            handleKeyPress={this.handleKeyPress}
                         />
                     </FlexView>
                     {/* <FlexView hAlignContent='center'>

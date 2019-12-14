@@ -19,6 +19,7 @@ const TextInput = React.forwardRef((props, ref) => {
                 type='text'
                 value={props.value}
                 onChange={props.handleChange}
+                onKeyDown={props.handleKeyPress}
                 placeholder='X'
                 maxLength='1'
             />
