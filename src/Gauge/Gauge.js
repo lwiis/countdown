@@ -9,7 +9,8 @@ class Gauge extends Component {
             <CircularProgressbar 
                 maxValue={30}
                 minValue={20}
-                value={this.props.temperature} text={`${this.props.temperature}˚C`}
+                // value={this.props.temperature} text={`${this.props.temperature}˚C`}
+                value={this.props.temperature} text={this.props.temperature}
                 styles={buildStyles({
                     // Rotation of path and trail, in number of turns (0-1)
                 //  rotation: 0.25,
@@ -18,7 +19,7 @@ class Gauge extends Component {
                     strokeLinecap: 'flat',
                  
                     // Text size
-                    textSize: '16px',
+                    textSize: '50px',
                  
                     // How long animation takes to go from one percentage to another, in seconds
                     pathTransitionDuration: 0.5,

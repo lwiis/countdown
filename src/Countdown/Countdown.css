@@ -14,3 +14,10 @@
   .Countdown {
     z-index: 200;
   }
+
+  .container {
+    background-color: black;
+    width: 100vw;
+    /* width: 100vw;
+    height: 100vh; */
+}

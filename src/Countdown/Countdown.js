@@ -17,6 +17,9 @@ class Countdown extends Component {
     this.interval = setInterval(() => {
       const date = this.calculateCountdown(this.props.date);
       date ? this.setState(date) : this.stop();
+      if (!this.props.isRunning) {
+        this.stop();
+      }
     }, 1);
   }
 
@@ -25,7 +28,7 @@ class Countdown extends Component {
   }
 
   calculateCountdown(endDate) {
-    let diff = (Date.parse(new Date(endDate)) - Date.parse(new Date()))/1000;
+    let diff = (Date.parse(new Date(endDate)) - Date.parse(new Date())) / 1000;
     //let diff = (new Date(endDate) - new Date())/1000;
     //console.log(new Date(endDate) - new Date()); 
     // clear countdown when date is reached
@@ -61,15 +64,17 @@ class Countdown extends Component {
 
   stop() {
     clearInterval(this.interval);
+    const date = this.calculateCountdown(this.props.date);
+    this.setState(date);
   }
 
   render() {
     const countDown = this.state;
 
     return (
-      <div className="Countdown" style={{fontSize:this.props.fontsize}}>
+      <div className="Countdown" style={{ fontSize: this.props.fontsize }}>
 
-        <h1 className='digital'>{countDown.hours.toString().padStart(2,0)}:{countDown.mins.toString().padStart(2,0)}:{countDown.secs.toString().padStart(2,0)}</h1>
+        <h1 className='digital'>{countDown.hours.toString().padStart(2, 0)}:{countDown.mins.toString().padStart(2, 0)}:{countDown.secs.toString().padStart(2, 0)}</h1>
 
       </div>
     );
