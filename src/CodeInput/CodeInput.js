@@ -25,8 +25,10 @@ class CodeInput extends Component {
         this.value5 = React.createRef();
     }
 
-    isASCII(str) {
-        return str.replace(/[^\x20-\x7E]/g, '')!=='';
+    isAlphaNumeric(str) {
+        //return str.replace(/[^\x20-\x7E]/g, '') !== '';
+        console.log(str + ' -> ' + str.toLowerCase().match(/^[a-z0-9]+$/));
+        return str.toLowerCase().match(/^[a-z0-9]+$/i)!==null;
     }
 
     handleKeyPress(event) {
@@ -35,19 +37,27 @@ class CodeInput extends Component {
         const code = event.key;
         const name = target.name;
 
-        console.log(code);
+        //console.log(code);
 
-        if (value==='' && code==='Backspace') {
+        if (value === '' && code === 'Backspace') {
+            console.log('backspace on empty');
             this.focusLeft(target);
-        } else if (value!=='' && code==='Backspace') {
+        } else if (value !== '' && code === 'Backspace') {
+            console.log('backspace on non-empty');
             this.setState({
                 [name]: ''
             });
-        } else if (code==='ArrowLeft') {
+        } else if (!this.isAlphaNumeric(code)) {
+            console.log('not alphanumeric');
+            return;
+        } else if (code === 'ArrowLeft') {
+            console.log('left');
             this.focusLeft(target);
-        } else if (code==='ArrowRight') {
+        } else if (code === 'ArrowRight') {
+            console.log('right');
             this.focusRight(target);
-        } else if (value!=='' && this.isASCII(code)) {
+        } else if (code.length===1 && this.isAlphaNumeric(code)) {
+            console.log(code);
             this.setState({
                 [name]: code
             });
@@ -80,15 +90,15 @@ class CodeInput extends Component {
     }
 
     handleInputChange(event) {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
+        // const target = event.target;
+        // const value = target.type === 'checkbox' ? target.checked : target.value;
+        // const name = target.name;
 
-        this.setState({
-            [name]: value
-        });
+        // this.setState({
+        //     [name]: value
+        // });
 
-        console.log('A value was submitted: ' + value+ ' on field ' + name);
+        //console.log('A value was submitted: ' + value + ' on field ' + name);
 
         // // move focus forward on typing
         // if (value.length === target.maxLength) {
