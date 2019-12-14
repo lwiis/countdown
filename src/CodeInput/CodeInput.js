@@ -27,7 +27,7 @@ class CodeInput extends Component {
 
     isAlphaNumeric(str) {
         //return str.replace(/[^\x20-\x7E]/g, '') !== '';
-        console.log(str + ' -> ' + str.toLowerCase().match(/^[a-z0-9]+$/));
+        //console.log(str + ' -> ' + str.toLowerCase().match(/^[a-z0-9]+$/));
         return str.toLowerCase().match(/^[a-z0-9]+$/i)!==null;
     }
 
@@ -40,24 +40,24 @@ class CodeInput extends Component {
         //console.log(code);
 
         if (value === '' && code === 'Backspace') {
-            console.log('backspace on empty');
+            //console.log('backspace on empty');
             this.focusLeft(target);
         } else if (value !== '' && code === 'Backspace') {
-            console.log('backspace on non-empty');
+            // console.log('backspace on non-empty');
             this.setState({
                 [name]: ''
             });
         } else if (!this.isAlphaNumeric(code)) {
-            console.log('not alphanumeric');
+            // console.log('not alphanumeric');
             return;
         } else if (code === 'ArrowLeft') {
-            console.log('left');
+            // console.log('left');
             this.focusLeft(target);
         } else if (code === 'ArrowRight') {
-            console.log('right');
+            // console.log('right');
             this.focusRight(target);
         } else if (code.length===1 && this.isAlphaNumeric(code)) {
-            console.log(code);
+            // console.log(code);
             this.setState({
                 [name]: code
             });
@@ -124,7 +124,7 @@ class CodeInput extends Component {
     }
 
     handleSubmit(event) {
-        console.log(this.state);
+        // console.log(this.state);
         event.preventDefault();
     }
 
