@@ -67,7 +67,7 @@ class Countdown extends Component {
     const countDown = this.state;
 
     return (
-      <div className="Countdown">
+      <div className="Countdown" style={{fontSize:this.props.fontsize}}>
 
         <h1 className='digital'>{countDown.hours.toString().padStart(2,0)}:{countDown.mins.toString().padStart(2,0)}:{countDown.secs.toString().padStart(2,0)}</h1>
 
