@@ -17,7 +17,8 @@ class App extends Component {
       temperature1: 28,
       temperature2: 24,
     }
-    this.toggleCodeInputHidden = this.toggleCodeInputHidden.bind(this);
+
+    this.checkCode = this.checkCode.bind(this);
     this.click = this.click.bind(this);
   }
 
@@ -45,20 +46,19 @@ class App extends Component {
         break;
       default:
         this.setState({
-          isRunning: false
+          route: 'main'
         });
         break;
     }
   }
 
-  toggleCodeInputHidden() {
-    this.setState({
-      codeInputIsHidden: !this.state.codeInputIsHidden
-    })
-  }
-
-  componentDidMount() {
-    //console.log('component did mount');
+  checkCode(code) {
+    console.log('checking code ' + code);
+    if (code.toLowerCase() === '12345') {
+      this.setState({
+        route: 'countdown',
+        isRunning: false
+      })    }
   }
 
   render() {
@@ -79,7 +79,7 @@ class App extends Component {
           <FlexView vAlignContent='top' basis='34vh' />
           <FlexView hAlignContent='center' vAlignContent='center' basis='32vh'><Countdown isRunning={this.state.isRunning} date={new Date('2020-01-01T00:00:00')} fontsize='13em' /></FlexView>
           <FlexView vAlignContent='center' hAlignContent='center' basis='17vh'>
-            <CodeInput />
+            <CodeInput checkCode={this.checkCode} />
           </FlexView>
           <FlexView vAlignContent='bottom' basis='16vh' />
         </FlexView>}

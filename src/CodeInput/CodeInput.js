@@ -110,12 +110,13 @@ class CodeInput extends Component {
     }
 
     componentDidUpdate() {
+        // console.log(this.props.checkCode);
         if (this.state.value1 !== ''
             && this.state.value2 !== ''
             && this.state.value3 !== ''
             && this.state.value4 !== ''
             && this.state.value5 !== '') {
-            console.log('all values specified');
+            this.props.checkCode(this.state.value1.toString() + this.state.value2.toString() + this.state.value3.toString() + this.state.value4.toString() + this.state.value5.toString());
         }
     }
 
