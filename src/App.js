@@ -18,6 +18,7 @@ class App extends Component {
       temperature2: 24,
     }
 
+    this.checkTemperature = this.checkTemperature.bind(this);
     this.checkCode = this.checkCode.bind(this);
     this.click = this.click.bind(this);
   }
@@ -61,6 +62,14 @@ class App extends Component {
       })    }
   }
 
+  checkTemperature() {
+    if(this.state.temperature1>=30 && this.state.temperature2>=30) {
+      this.setState({
+        route: 'code'
+      });
+    }
+  }
+
   render() {
     return (
       <FlexView vAlignContent='center' hAlignContent='center' onClick={this.click}>
@@ -69,9 +78,9 @@ class App extends Component {
         {this.state.route === 'countdown' && <FlexView><Countdown isRunning={this.state.isRunning} date={new Date('2020-01-01T00:00:00')} fontsize='18em' /></FlexView>}
         {this.state.route === 'temperature' && <FlexView column basis='100vw'>
           <FlexView hAlignContent='center' basis='100vh'>
-            <FlexView hAlignContent='left' marginRight='200px' basis='600px'><Gauge temperature={this.state.temperature1} />}</FlexView>
+            <FlexView hAlignContent='left' marginRight='200px' basis='600px'><Gauge temperature={this.state.temperature1} max={30} min={20}/>}</FlexView>
             <FlexView hAlignContent='center' vAlignContent='center'><Countdown isRunning={this.state.isRunning} date={new Date('2020-01-01T00:00:00')} fontsize='13em' /></FlexView>
-            <FlexView hAlignContent='right' marginLeft='200px' basis='600px'><Gauge temperature={this.state.temperature2} />}</FlexView>
+            <FlexView hAlignContent='right' marginLeft='200px' basis='600px'><Gauge temperature={this.state.temperature2} max={30} min={20}/>}</FlexView>
           </FlexView>}
          </FlexView>
         }
