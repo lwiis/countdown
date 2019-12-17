@@ -13,10 +13,11 @@ class Beacon extends Component {
     constructor() {
         super();
         this.state = {
-            showModal: true
+            showModal: true,
+            authorised: false
         };
 
-        this.bluetoothScan = this.bluetoothScan.bind(this);
+        this.clickHandler = this.clickHandler.bind(this);
     }
 
     calculateDistance (rssi, txPower) {
@@ -33,9 +34,22 @@ class Beacon extends Component {
           }
     }
 
-    bluetoothScan() {
-        this.setState({ showModal: false });
+    clickHandler() {
+        this.setState({ 
+            showModal: false,
+            authorised: true
+        });
 
+        this.bluetoothScan();
+    }
+
+    componentDidMount() {
+        if(this.state.authorised) {
+            this.bluetoothScan();
+        }
+    }
+
+    bluetoothScan() {
         navigator.bluetooth.requestLEScan({
             // acceptAllAdvertisements: true,
             filters: [{ name: 'Puck.js 0f06' }, { name: 'Puck.js d06a' }],
@@ -47,18 +61,20 @@ class Beacon extends Component {
                 // console.log(event.manufacturerData);
                 let data = event.manufacturerData.get(0x590);
                 // console.log(data);
-                let temperature = data.getInt8(1);
-                // let battery = data.getUint8(0);
-                // console.log('temperature = ' + temperature);
-                // console.log('battery = ' + battery);
-                switch (event.name) {
-                    case 'Puck.js 0f06':
-                        this.props.onTemperature1Change(temperature);
-                        break;
-                    case 'Puck.js d06a':
-                    default:
-                        this.props.onTemperature2Change(temperature);
-                        break;
+                if(data) {
+                    let temperature = data.getInt8(1);
+                    // let battery = data.getUint8(0);
+                    // console.log('temperature = ' + temperature);
+                    // console.log('battery = ' + battery);
+                    switch (event.name) {
+                        case 'Puck.js 0f06':
+                            this.props.onTemperature1Change(temperature);
+                            break;
+                        case 'Puck.js d06a':
+                        default:
+                            this.props.onTemperature2Change(temperature);
+                            break;
+                    }
                 }
             });
         });
@@ -73,7 +89,7 @@ class Beacon extends Component {
                     contentLabel="Minimal Modal Example"
                     ariaHideApp={false}
                 >
-                    <button onClick={this.bluetoothScan}>Scan</button>
+                    <button onClick={this.clickHandler}>Scan</button>
                 </ReactModal>
             </div>
 

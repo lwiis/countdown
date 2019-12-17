@@ -98,7 +98,7 @@ class App extends Component {
   render() {
     return (
       <FlexView vAlignContent='center' hAlignContent='center'>
-        {/* <FlexView><Beacon onTemperature1Change={this.handleTemperature1} onTemperature2Change={this.handleTemperature2} /></FlexView> */}
+        <FlexView><Beacon onTemperature1Change={this.handleTemperature1} onTemperature2Change={this.handleTemperature2} /></FlexView>
         <FlexView vAlignContent='center' hAlignContent='center' onClick={this.click}>
           {this.state.route === 'main' && <FlexView hAlignContent='center' basis='2000px' width='2000px' marginTop='-280px'><Logo /></FlexView>}
           {this.state.route === 'hack' && <Hack />}

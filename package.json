@@ -1,6 +1,6 @@
 {
   "name": "countdown",
-  "homepage": "http://lwiis.github.io/countdown",
+  "homepage": "https://lwiis.github.io/countdown",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
