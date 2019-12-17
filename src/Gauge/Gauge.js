@@ -46,7 +46,6 @@ class Gauge extends Component {
                     // pathTransition: 'none',
 
                     // Colors
-                    //pathColor: `rgba(62, 152, 199, ${(Math.max(this.props.temperature,20)-20) / 30})`,
                     pathColor: color,
                     textColor: color,
                     trailColor: '#222',
