@@ -19,6 +19,20 @@ class Beacon extends Component {
         this.bluetoothScan = this.bluetoothScan.bind(this);
     }
 
+    calculateDistance (rssi, txPower) {
+        if (rssi === 0) {
+            return -1.0; // if we cannot determine accuracy, return -1.
+          }
+        
+          let ratio = rssi*1.0/txPower;
+          if (ratio < 1.0) {
+            return Math.pow(ratio,10);
+          }
+          else {
+            return   (0.89976)*Math.pow(ratio,7.7095) + 0.111;
+          }
+    }
+
     bluetoothScan() {
         this.setState({ showModal: false });
 
@@ -29,6 +43,7 @@ class Beacon extends Component {
         }).then(() => {
             navigator.bluetooth.addEventListener('advertisementreceived', event => {
                 // console.log(event);
+                console.log(this.calculateDistance(event.rssi, -60));
                 // console.log(event.manufacturerData);
                 let data = event.manufacturerData.get(0x590);
                 // console.log(data);

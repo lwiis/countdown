@@ -80,14 +80,17 @@ class App extends Component {
 
   checkTemperature() {
     if (this.state.route === 'temperature' && (this.state.temperature1 >= 30 && this.state.temperature2 >= 30)) {
-      this.setState({
-        route: 'code'
-      });
+      console.log('done!');
+      setTimeout(()=>{
+        this.setState({
+          route: 'code'
+        });
+      }, 2000);
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(prevState.temperature1!==this.state.temperature1 || prevState.temperature2!==this.state.temperature2) {
+    if(this.state.route === 'temperature' && (prevState.temperature1!==this.state.temperature1 || prevState.temperature2!==this.state.temperature2)) {
       this.checkTemperature();
     }
   }
@@ -95,7 +98,7 @@ class App extends Component {
   render() {
     return (
       <FlexView vAlignContent='center' hAlignContent='center'>
-        <FlexView><Beacon onTemperature1Change={this.handleTemperature1} onTemperature2Change={this.handleTemperature2} /></FlexView>
+        {/* <FlexView><Beacon onTemperature1Change={this.handleTemperature1} onTemperature2Change={this.handleTemperature2} /></FlexView> */}
         <FlexView vAlignContent='center' hAlignContent='center' onClick={this.click}>
           {this.state.route === 'main' && <FlexView hAlignContent='center' basis='2000px' width='2000px' marginTop='-280px'><Logo /></FlexView>}
           {this.state.route === 'hack' && <Hack />}
