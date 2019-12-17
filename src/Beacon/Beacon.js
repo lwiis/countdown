@@ -44,13 +44,18 @@ class Beacon extends Component {
     }
 
     componentDidMount() {
+        console.log('componentDidMount');
         if(this.state.authorised) {
             this.bluetoothScan();
         }
     }
 
+    componentWillUnmount() {
+        console.log('componentWillUnmount');
+    }
+
     bluetoothScan() {
-        navigator.bluetooth.requestLEScan({
+        window.navigator.bluetooth.requestLEScan({
             // acceptAllAdvertisements: true,
             filters: [{ name: 'Puck.js 0f06' }, { name: 'Puck.js d06a' }],
             keepRepeatedDevices: true
