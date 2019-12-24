@@ -26,11 +26,11 @@ class Beacon extends Component {
           }
         
           let ratio = rssi*1.0/txPower;
+
           if (ratio < 1.0) {
             return Math.pow(ratio,10);
-          }
-          else {
-            return   (0.89976)*Math.pow(ratio,7.7095) + 0.111;
+          } else {
+            return (0.89976)*Math.pow(ratio,7.7095) + 0.111;
           }
     }
 
@@ -55,21 +55,25 @@ class Beacon extends Component {
     }
 
     bluetoothScan() {
-        window.navigator.bluetooth.requestLEScan({
+        navigator.bluetooth.requestLEScan({
             // acceptAllAdvertisements: true,
             filters: [{ name: 'Puck.js 0f06' }, { name: 'Puck.js d06a' }],
             keepRepeatedDevices: true
         }).then(() => {
             navigator.bluetooth.addEventListener('advertisementreceived', event => {
-                // console.log(event);
-                console.log(this.calculateDistance(event.rssi, -60));
-                // console.log(event.manufacturerData);
+
+                let distance = this.calculateDistance(event.rssi, -60);
+
                 let data = event.manufacturerData.get(0x590);
-                // console.log(data);
+
                 if(data) {
                     let temperature = data.getInt8(1);
-                    // let battery = data.getUint8(0);
-                    // console.log('temperature = ' + temperature);
+                    let battery = data.getUint8(0);
+                    let button = data.getInt8(2);
+                    if(button) {
+                        this.props.onButtonPressed();
+                    }
+                    console.log(event.name + ': temperature=' + temperature + '; battery=' + battery + '; distance=' + distance + '; button=' + button);
                     // console.log('battery = ' + battery);
                     switch (event.name) {
                         case 'Puck.js 0f06':

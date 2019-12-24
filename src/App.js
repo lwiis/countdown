@@ -8,17 +8,19 @@ import Logo from './Logo/Logo';
 import Gauge from './Gauge/Gauge';
 import Hack from './Hack/Hack';
 import Beacon from './Beacon/Beacon';
+import Fireworks from 'fireworks-react';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      isRunning: true,
-      route: 'main',
+      isRunning: localStorage.getItem('isRunning')?localStorage.getItem('isRunning'):true,
+      route: localStorage.getItem('route')?localStorage.getItem('route'):'main',
       temperature1: 28,
       temperature2: 24,
     }
 
+    this.handleButtonPressed = this.handleButtonPressed.bind(this);
     this.handleTemperature1 = this.handleTemperature1.bind(this);
     this.handleTemperature2 = this.handleTemperature2.bind(this);
     this.checkTemperature = this.checkTemperature.bind(this);
@@ -60,7 +62,7 @@ class App extends Component {
     console.log('checking code ' + code);
     if (code.toLowerCase() === '12345') {
       this.setState({
-        route: 'countdown',
+        route: 'win',
         isRunning: false
       })
     }
@@ -78,6 +80,12 @@ class App extends Component {
     })
   }
 
+  handleButtonPressed() {
+    if(this.state.route==='countdown') {
+      this.setState({route: 'temperature'});
+    }
+  }
+
   checkTemperature() {
     if (this.state.route === 'temperature' && (this.state.temperature1 >= 30 && this.state.temperature2 >= 30)) {
       console.log('done!');
@@ -90,15 +98,26 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(this.state.route === 'temperature' && (prevState.temperature1!==this.state.temperature1 || prevState.temperature2!==this.state.temperature2)) {
+    if(this.state.route === 'temperature') {
       this.checkTemperature();
     }
+
+    this.setStorage();
+  }
+
+  componentDidMount() {
+    this.setStorage();
+  }
+
+  setStorage() {
+    localStorage.setItem('isRunning', this.state.isRunning);
+    localStorage.setItem('route', this.state.route);
   }
 
   render() {
     return (
       <FlexView vAlignContent='center' hAlignContent='center'>
-        <FlexView><Beacon onTemperature1Change={this.handleTemperature1} onTemperature2Change={this.handleTemperature2} /></FlexView>
+        <FlexView><Beacon onTemperature1Change={this.handleTemperature1} onTemperature2Change={this.handleTemperature2} onButtonPressed={this.handleButtonPressed}/></FlexView>
         <FlexView vAlignContent='center' hAlignContent='center' onClick={this.click}>
           {this.state.route === 'main' && <FlexView hAlignContent='center' basis='2000px' width='2000px' marginTop='-280px'><Logo /></FlexView>}
           {this.state.route === 'hack' && <Hack />}
@@ -119,6 +138,7 @@ class App extends Component {
             </FlexView>
             <FlexView vAlignContent='bottom' basis='16vh' />
           </FlexView>}
+          {this.state.route === 'win' && <FlexView><Fireworks width={3440} height={1440}/></FlexView>}
         </FlexView>
       </FlexView>
     );
