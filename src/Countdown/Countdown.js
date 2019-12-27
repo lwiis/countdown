@@ -10,21 +10,45 @@ class Countdown extends Component {
       mins: 0,
       secs: 0,
     }
+
+    this.interval = 0;
   }
 
   componentDidMount() {
     // update every half second
+    this.start();
+  }
+
+  start() {
+    console.log('starting timer');
     this.interval = setInterval(() => {
       const date = this.calculateCountdown(this.props.date);
       date ? this.setState(date) : this.stop();
       if (!this.props.isRunning) {
         this.stop();
+        this.setState(date);
       }
     }, 1);
   }
 
-  componentWillUnmount() {
-    this.stop();
+  stop() {
+    console.log('stopping timer');
+    clearInterval(this.interval);
+    this.interval=0;
+    // const date = this.calculateCountdown(this.props.date);
+    // this.setState(date);
+  }
+  
+  // componentWillUnmount() {
+  //   this.stop();
+  // }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(!prevProps.isRunning && this.props.isRunning) {
+      this.start();
+    } else if(prevProps.isRunning && !this.props.isRunning) {
+      this.stop();
+    }
   }
 
   calculateCountdown(endDate) {
@@ -60,12 +84,6 @@ class Countdown extends Component {
     // }
 
     return timeLeft;
-  }
-
-  stop() {
-    clearInterval(this.interval);
-    const date = this.calculateCountdown(this.props.date);
-    this.setState(date);
   }
 
   render() {

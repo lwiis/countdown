@@ -11,6 +11,7 @@ class CodeInput extends Component {
             value3: '',
             value4: '',
             value5: '',
+            value6: '',
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -23,6 +24,7 @@ class CodeInput extends Component {
         this.value3 = React.createRef();
         this.value4 = React.createRef();
         this.value5 = React.createRef();
+        this.value6 = React.createRef();
     }
 
     isAlphaNumeric(str) {
@@ -74,11 +76,15 @@ class CodeInput extends Component {
             this.value4.current.focus();
         } else if (target === this.value4.current) {
             this.value5.current.focus();
+        } else if (target === this.value5.current) {
+            this.value6.current.focus();
         }
     }
 
     focusLeft(target) {
-        if (target === this.value5.current) {
+        if (target === this.value6.current) {
+            this.value5.current.focus();
+        } else if (target === this.value5.current) {
             this.value4.current.focus();
         } else if (target === this.value4.current) {
             this.value3.current.focus();
@@ -115,12 +121,14 @@ class CodeInput extends Component {
             && this.state.value2 !== ''
             && this.state.value3 !== ''
             && this.state.value4 !== ''
-            && this.state.value5 !== '') {
-            this.props.checkCode(this.state.value1.toString() + this.state.value2.toString() + this.state.value3.toString() + this.state.value4.toString() + this.state.value5.toString());
+            && this.state.value5 !== ''
+            && this.state.value6 !== '') {
+            this.props.checkCode(this.state.value1.toString() + this.state.value2.toString() + this.state.value3.toString() + this.state.value4.toString() + this.state.value5.toString() + this.state.value6.toString());
         }
     }
 
     componentDidMount() {
+        console.log('code input componentDidMount');
         this.value1.current.focus();
     }
 
@@ -136,6 +144,7 @@ class CodeInput extends Component {
             value3: '',
             value4: '',
             value5: '',
+            value6: '',
         });
     }
 
@@ -143,7 +152,7 @@ class CodeInput extends Component {
         return (
 
             <form className="container" onSubmit={this.handleSubmit}>
-                <FlexView column>
+                <FlexView column id='CodeInput'>
                     <FlexView hAlignContent='center'>
                         <TextInput
                             id="1"
@@ -182,6 +191,14 @@ class CodeInput extends Component {
                             ref={this.value5}
                             name={'value5'}
                             value={this.state.value5}
+                            handleChange={this.handleInputChange}
+                            handleKeyPress={this.handleKeyPress}
+                        />
+                        <TextInput
+                            id="6"
+                            ref={this.value6}
+                            name={'value6'}
+                            value={this.state.value6}
                             handleChange={this.handleInputChange}
                             handleKeyPress={this.handleKeyPress}
                         />
