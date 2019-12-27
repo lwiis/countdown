@@ -39,9 +39,9 @@ class Countdown extends Component {
     // this.setState(date);
   }
   
-  // componentWillUnmount() {
-  //   this.stop();
-  // }
+  componentWillUnmount() {
+    this.stop();
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if(!prevProps.isRunning && this.props.isRunning) {

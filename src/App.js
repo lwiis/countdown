@@ -93,11 +93,12 @@ class App extends Component {
       this.checkTemperature();
     }
 
-    if (this.state.route !== prevState.route
+    if ((this.state.route !== prevState.route
       || this.state.isRunning !== prevState.isRunning
       || this.state.temperature1 !== prevState.temperature1
-      || this.state.temperature2 !== prevState.temperature2) {
-      // console.log('pushing new state to server');
+      || this.state.temperature2 !== prevState.temperature2)
+      && this.state.senderId === clientId) {
+      console.log('pushing new state to server');
       fetch(new URL('/state', server), {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
@@ -123,7 +124,7 @@ class App extends Component {
         // console.log(parsedData);
         // console.log('me: ' + clientId + '; senderId: ' + parsedData.senderId);
         if (parsedData.senderId !== clientId) {
-          // console.log(' --> update status');
+          console.log('updating state from server');
           this.setState(parsedData);
         }
       };
