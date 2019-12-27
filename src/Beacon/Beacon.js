@@ -44,14 +44,19 @@ class Beacon extends Component {
     }
 
     componentDidMount() {
-        console.log('componentDidMount');
+        console.log('Beacon componentDidMount');
         if(this.state.authorised) {
             this.bluetoothScan();
         }
+
+        this.setState({ 
+            showModal: true,
+            authorised: true
+        });
     }
 
     componentWillUnmount() {
-        console.log('componentWillUnmount');
+        console.log('Beacon componentWillUnmount');
     }
 
     bluetoothScan() {
