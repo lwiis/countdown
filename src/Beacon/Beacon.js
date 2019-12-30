@@ -89,7 +89,18 @@ class Beacon extends Component {
                             this.props.onTemperature2Change(temperature);
                             break;
                     }
+
+                    // console.log('sending:');
+                    // console.log('{name:' + event.name + ', temperature:' + temperature + ', battery:' + battery + ', distance:' + distance + ', button:' + button + '}');
+
+                    fetch(new URL('/beacon', this.props.server), {
+                        method: 'post',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: '{"name":"' + event.name + '", "temperature":' + temperature + ', "battery":' + battery + ', "distance":' + distance + ', "button":' + button + '}'
+                      });
                 }
+
+
             });
         });
     }

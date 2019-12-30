@@ -14,7 +14,7 @@ const clientId = Date.now();
 const targetTemperature = 30;
 const codeSolution = '123456';
 const targetDate = new Date('2020-01-01T00:00:00');
-const server = 'http://192.168.1.90:4000'
+const server = 'http://localhost:4000'
 
 console.log('me = ' + clientId);
 
@@ -138,9 +138,9 @@ class App extends Component {
     } else {
       return (
         <FlexView vAlignContent='center' hAlignContent='center'>
-          <Beacon onTemperature1Change={this.handleTemperature1} onTemperature2Change={this.handleTemperature2} onButtonPressed={this.handleButtonPressed} />
+          <Beacon onTemperature1Change={this.handleTemperature1} onTemperature2Change={this.handleTemperature2} onButtonPressed={this.handleButtonPressed} server={server}/>
           {this.state.route === 'main' && <FlexView hAlignContent='center' basis='2000px' width='2000px' marginTop='-280px'><Logo /></FlexView>}
-          {this.state.route === 'hack' && <Hack />}
+          {this.state.route === 'hack' && <Hack handleEndVideo={()=>this.setState({route: 'countdown'})}/>}
           {this.state.route === 'countdown' && <FlexView><Countdown isRunning={this.state.isRunning} date={targetDate} fontsize='18em' /></FlexView>}
           {this.state.route === 'temperature' && <FlexView column basis='100vw'>
             <FlexView hAlignContent='center' basis='100vh'>

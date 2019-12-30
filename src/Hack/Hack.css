@@ -13,7 +13,7 @@
 }
 
 .hackimage {
-    z-index: 100;
+    z-index: 0;
     height: 100vh;
 }
 /* 
@@ -34,3 +34,26 @@
     background-color: blue;
     height: 100%;
 } */
+
+/*  video size is 480x848 */
+
+.Modal {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    background-color: black;
+  }
+
+  .Overlay {
+    position: fixed;
+    top: 20px;
+    left: 1310px;
+    right: 0;
+    bottom: 0;
+    height: 1400px;
+    width: 820px;
+    /* transform: translate(118%,-9%); */
+    background-color: black;
+  }
