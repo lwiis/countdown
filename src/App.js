@@ -11,9 +11,9 @@ import Beacon from './Beacon/Beacon';
 import CustomFireworks from './CustomFireworks/CustomFireworks';
 
 const clientId = Date.now();
-const targetTemperature = 30;
+const targetTemperature = 32;
 const codeSolution = '123456';
-const targetDate = new Date('2020-01-01T00:00:00');
+const targetDate = new Date('2020-01-02T00:00:00');
 const server = 'http://localhost:4000'
 
 console.log('me = ' + clientId);
@@ -53,7 +53,7 @@ class App extends Component {
     if (code.toLowerCase() === codeSolution) {
       setTimeout(() => {
         this.setState({
-          // route: 'win',
+          route: 'main',
           isRunning: false
         })
       }, 500);
@@ -137,16 +137,16 @@ class App extends Component {
       return (<CustomFireworks width={3440} height={1440} />);
     } else {
       return (
-        <FlexView vAlignContent='center' hAlignContent='center'>
+        <FlexView vAlignContent='center' hAlignContent='center' style={{cursor: 'none'}}>
           <Beacon onTemperature1Change={this.handleTemperature1} onTemperature2Change={this.handleTemperature2} onButtonPressed={this.handleButtonPressed} server={server}/>
           {this.state.route === 'main' && <FlexView hAlignContent='center' basis='2000px' width='2000px' marginTop='-280px'><Logo /></FlexView>}
           {this.state.route === 'hack' && <Hack handleEndVideo={()=>this.setState({route: 'countdown'})}/>}
           {this.state.route === 'countdown' && <FlexView><Countdown isRunning={this.state.isRunning} date={targetDate} fontsize='18em' /></FlexView>}
           {this.state.route === 'temperature' && <FlexView column basis='100vw'>
             <FlexView hAlignContent='center' basis='100vh'>
-              <FlexView hAlignContent='left' marginRight='200px' basis='600px'><Gauge temperature={this.state.temperature1} max={30} min={20} /></FlexView>
+              <FlexView hAlignContent='left' marginRight='200px' basis='600px'><Gauge temperature={this.state.temperature1} max={targetTemperature} min={20} /></FlexView>
               <FlexView hAlignContent='center' vAlignContent='center'><Countdown isRunning={this.state.isRunning} date={targetDate} fontsize='13em' /></FlexView>
-              <FlexView hAlignContent='right' marginLeft='200px' basis='600px'><Gauge temperature={this.state.temperature2} max={30} min={20} /></FlexView>
+              <FlexView hAlignContent='right' marginLeft='200px' basis='600px'><Gauge temperature={this.state.temperature2} max={targetTemperature} min={20} /></FlexView>
             </FlexView></FlexView>}
           {this.state.route === 'code' && <FlexView column basis='100vw'>
             <FlexView vAlignContent='top' basis='34vh' />
